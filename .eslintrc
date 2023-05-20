@@ -1,0 +1,20 @@
+/*
+ * ESlint 推奨項目一覧
+ * https://eslint.org/docs/rules/
+ */
+
+{
+	"root": true,
+	"env": {
+		"browser": true,
+		"es2022": true,
+		"node": true
+	},
+	"parserOptions": {
+		"sourceType": "module"
+	},
+	"rules": {
+		"no-var": "error"
+	},
+	"extends": ["eslint:recommended", "prettier"]
+}
