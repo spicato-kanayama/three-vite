@@ -24,7 +24,7 @@ const pageConfig = pageDirNameList.reduce((arr, pageName) => {
 const paheListHtml = pageDirNameList
 	.map(
 		(pageName) =>
-			`<li><a href="./pages/${pageName}/index.html">${pageName}</a></li>`
+			`<li><a href="/pages/${pageName}/index.html">${pageName}</a></li>`
 	)
 	.join('');
 
