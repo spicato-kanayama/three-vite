@@ -12,7 +12,8 @@ export default class App3 extends BaseCanvas {
 
 		// ジオメトリ
 		this.sphere = new THREE.SphereGeometry(0.5, 32, 16);
-		this.plane = new THREE.PlaneGeometry(1, 1);
+		this.box = new THREE.BoxGeometry(1, 1, 1);
+		this.plane = new THREE.PlaneGeometry(100, 100);
 		this.octahedron = new THREE.OctahedronGeometry(0.5);
 
 		// テクスチャ
@@ -26,12 +27,17 @@ export default class App3 extends BaseCanvas {
 
 		// メッシュ
 		this.sphereMesh = new THREE.Mesh(this.sphere, this.material);
+		this.boxMesh = new THREE.Mesh(this.box, this.material);
 		this.planeMesh = new THREE.Mesh(this.plane, this.material);
 		this.octahedronMesh = new THREE.Mesh(this.octahedron, this.material);
 
 		// ポジション
 		this.sphereMesh.position.set(-2, 0, 0);
 		this.octahedronMesh.position.set(2, 0, 0);
+
+		// 床を作成
+		this.planeMesh.rotation.x = -Math.PI * 0.5;
+		this.planeMesh.position.y = -1;
 
 		// ライト
 		this.ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
@@ -45,7 +51,12 @@ export default class App3 extends BaseCanvas {
 			this.pointLightHelper
 		);
 
-		this.scene.add(this.sphereMesh, this.planeMesh, this.octahedronMesh);
+		this.scene.add(
+			this.sphereMesh,
+			this.boxMesh,
+			this.planeMesh,
+			this.octahedronMesh
+		);
 
 		this.controls = new OrbitControls(
 			this.camera,
@@ -61,12 +72,12 @@ export default class App3 extends BaseCanvas {
 
 		// x軸
 		this.sphereMesh.rotation.x = elapsedTime;
-		this.planeMesh.rotation.x = elapsedTime;
+		this.boxMesh.rotation.x = elapsedTime;
 		this.octahedronMesh.rotation.x = elapsedTime;
 
 		// y軸
 		this.sphereMesh.rotation.y = elapsedTime;
-		this.planeMesh.rotation.y = elapsedTime;
+		this.boxMesh.rotation.y = elapsedTime;
 		this.octahedronMesh.rotation.y = elapsedTime;
 	}
 }
