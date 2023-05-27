@@ -1,5 +1,6 @@
 // npm
 import * as THREE from 'three';
+import { Pane } from 'tweakpane';
 
 import BaseCanvas from './BaseCanvas';
 
@@ -19,10 +20,10 @@ export default class App3 extends BaseCanvas {
 		this.bufferGeometry = new THREE.BufferGeometry();
 
 		// 9つの頂点座標（小数点）
-		const count = 50;
-		const positionArray = new Float32Array(9 * count);
+		this.count = 50;
+		const positionArray = new Float32Array(9 * this.count);
 
-		for (let i = 0; i < count * 9; i++) {
+		for (let i = 0; i < this.count * 9; i++) {
 			positionArray[i] = (Math.random() - 0.5) * 2;
 		}
 
@@ -58,5 +59,42 @@ export default class App3 extends BaseCanvas {
 			this.camera,
 			this.renderer.domElement
 		);
+
+		// GUI操作
+		/**
+		 * @type {any}
+		 */
+		const pane = new Pane();
+
+		const panePosition = pane.addFolder({
+			title: 'position',
+		});
+		const paneRotate = pane.addFolder({
+			title: 'rotate',
+		});
+
+		// this.buffer の x, y, z の値を操作する
+		panePosition.addInput(this.buffer.position, 'x', {
+			min: -3,
+			max: 3,
+			step: 0.01,
+		});
+
+		// this.buffer の rotate を操作する、名前を rotateX にする
+		paneRotate.addInput(this.buffer.rotation, 'x', {
+			min: -Math.PI,
+			max: Math.PI,
+			step: 0.01,
+			label: 'rotateX',
+		});
+
+		// this.buffer の visible を操作する
+		pane.addInput(this.buffer, 'visible');
+
+		// this.buffer の wireframe を操作する
+		pane.addInput(this.buffer.material, 'wireframe');
+
+		// this.buffer の カラー を操作する
+		pane.addInput(this.material, 'color');
 	}
 }
