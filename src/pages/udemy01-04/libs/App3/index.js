@@ -5,6 +5,7 @@ import BaseCanvas from './BaseCanvas';
 
 // オービットコントロール
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { Pane } from 'tweakpane';
 
 export default class App3 extends BaseCanvas {
 	constructor() {
@@ -23,6 +24,7 @@ export default class App3 extends BaseCanvas {
 		// マテリアル
 		this.material = new THREE.MeshPhongMaterial();
 		this.material.shininess = 100;
+		this.material.side = THREE.DoubleSide;
 		this.material.specular = new THREE.Color(0x1188ff);
 
 		// メッシュ
@@ -40,16 +42,12 @@ export default class App3 extends BaseCanvas {
 		this.planeMesh.position.y = -1;
 
 		// ライト
-		this.ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
-		this.pointLight = new THREE.PointLight(0xffffff, 0.6);
-		this.pointLight.position.set(2, 3, 4);
-		this.pointLightHelper = new THREE.PointLightHelper(this.pointLight, 1);
+		this.light = new THREE.AmbientLight(0xffffff, 0.2);
+		this.scene.add(this.light);
 
-		this.scene.add(
-			this.ambientLight,
-			this.pointLight,
-			this.pointLightHelper
-		);
+		this.pointLight = new THREE.PointLight(0xff4000, 0.6, 10);
+		this.pointLight.position.set(2, 0, 4);
+		this.scene.add(this.pointLight);
 
 		this.scene.add(
 			this.sphereMesh,
@@ -65,6 +63,45 @@ export default class App3 extends BaseCanvas {
 
 		// 時間
 		this.time = new THREE.Clock();
+
+		// デバッグ
+		this.debug();
+	}
+
+	debug() {
+		// UIデバッグ
+		/**
+		 * @type {any}
+		 */
+		this.pane = new Pane();
+
+		const lightPane = this.pane.addFolder({
+			title: 'Light',
+		});
+
+		// ライトの明るさ
+		lightPane.addInput(this.light, 'intensity', {
+			min: 0,
+			max: 1,
+		});
+
+		// ライトのポジション
+		const lightPosPane = lightPane.addFolder({
+			title: 'Position',
+		});
+
+		lightPosPane.addInput(this.light.position, 'x', {
+			min: -5,
+			max: 5,
+		});
+		lightPosPane.addInput(this.light.position, 'y', {
+			min: -5,
+			max: 5,
+		});
+		lightPosPane.addInput(this.light.position, 'z', {
+			min: -5,
+			max: 5,
+		});
 	}
 
 	animation() {
