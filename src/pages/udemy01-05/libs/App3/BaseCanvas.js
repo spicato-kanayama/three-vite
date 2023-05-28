@@ -15,7 +15,7 @@ export default class BaseCanvas {
 		// カメラ
 		this.camera = new THREE.PerspectiveCamera(
 			60,
-			window.innerWidth / window.innerHeight,
+			Config.aspectRatio,
 			0.1,
 			100
 		);
@@ -26,7 +26,7 @@ export default class BaseCanvas {
 		this.renderer = new THREE.WebGLRenderer({
 			alpha: true,
 		});
-		this.renderer.setSize(window.innerWidth, window.innerHeight);
+		this.renderer.setSize(Config.width, Config.height);
 		this.renderer.setPixelRatio(Config.dpr);
 		this.canvas.appendChild(this.renderer.domElement);
 
