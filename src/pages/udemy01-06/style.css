@@ -1,0 +1,36 @@
+img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#app {
+	background-color: #333;
+	width: 100%;
+	height: 1000vh;
+}
+
+#canvas {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+}
+
+.wrapper {
+	position: relative;
+	z-index: 2;
+}
+
+.item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100vh;
+	color: #fff;
+	font-size: 10vh;
+	font-weight: 700;
+}
