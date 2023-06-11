@@ -19,7 +19,7 @@ export default class App3 extends BaseCanvas {
 		this.material.flatShading = true;
 
 		// ジオメトリ
-		this.torusGeometry = new THREE.TorusGeometry(1, 0.4, 32, 64);
+		this.torusGeometry = new THREE.TorusGeometry(0.5, 0.2, 32, 64);
 		this.sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
 		this.boxGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
 		this.IcosahedronGeometry = new THREE.IcosahedronGeometry(0.5, 0);
@@ -33,14 +33,20 @@ export default class App3 extends BaseCanvas {
 			this.material
 		);
 
+		this.group = new THREE.Group();
+		this.group.add(this.torus, this.sphere, this.box, this.Icosahedron);
+
 		// シーンに追加
-		this.scene.add(this.torus, this.sphere, this.box, this.Icosahedron);
+		this.scene.add(this.group);
 
 		// ポジション
-		// this.torus.position.set(2, 0, 0);
-		// this.sphere.position.set(-1, 0, 0);
-		// // this.box.position.set(2, 0, -6);
-		// this.Icosahedron.position.set(-1, 0, 3);
+		const distance = 2;
+		this.torus.position.set(0, 0, -distance);
+		this.sphere.position.set(distance, 0, 0);
+		this.box.position.set(0, 0, distance);
+		this.Icosahedron.position.set(-distance, 0, 0);
+
+		this.group.position.set(2, 0, 0);
 
 		// ライト
 		this.light = new THREE.DirectionalLight(0xffffff, 4);
@@ -103,8 +109,8 @@ export default class App3 extends BaseCanvas {
 		const elapsedTime = this.time.getElapsedTime();
 
 		// 回転させる
-		for (let i = 0; i < this.scene.children.length; i++) {
-			const object = this.scene.children[i];
+		for (let i = 0; i < this.group.children.length; i++) {
+			const object = this.group.children[i];
 
 			object.rotation.y = elapsedTime;
 			object.rotation.x = elapsedTime;
@@ -114,26 +120,13 @@ export default class App3 extends BaseCanvas {
 		this.rotation += this.speed;
 		this.speed *= 0.9;
 
-		const r = 3.8;
-		const x = 2;
-		const z = -3;
+		this.group.rotation.y = this.rotation;
 
-		this.box.position.x = x + r * Math.cos(this.rotation);
-		this.box.position.z = z + r * Math.sin(this.rotation);
-		this.sphere.position.x =
-			x + r * Math.cos(this.rotation + Math.PI * 0.5);
-		this.sphere.position.z =
-			z + r * Math.sin(this.rotation + Math.PI * 0.5);
-		this.Icosahedron.position.x = x + r * Math.cos(this.rotation + Math.PI);
-		this.Icosahedron.position.z = z + r * Math.sin(this.rotation + Math.PI);
-		this.torus.position.x = x + r * Math.cos(this.rotation + Math.PI * 1.5);
-		this.torus.position.z = z + r * Math.sin(this.rotation + Math.PI * 1.5);
-
-		const px = Pointer.x / Config.width - 0.5;
-		const py = Pointer.y / Config.height - 0.5;
+		const px = (Pointer.x / Config.width) * 2.0 - 1.0;
+		const py = (Pointer.y / Config.height) * 2.0 - 1.0;
 
 		// マウスの位置によってカメラの位置を変える
-		this.camera.position.x += (px * 2 - this.camera.position.x) * 0.1;
-		this.camera.position.y += (py * 2 - this.camera.position.y) * 0.1;
+		this.camera.position.x += (px - this.camera.position.x) * 0.1;
+		this.camera.position.y += (py - this.camera.position.y) * 0.1;
 	}
 }
