@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import { resolve } from 'path';
+import glsl from 'vite-plugin-glsl';
 import { defineConfig } from 'vite';
 
 const root = resolve(__dirname, 'src');
@@ -55,5 +56,5 @@ export default defineConfig({
 		},
 		emptyOutDir: true,
 	},
-	plugins: [htmlPlugin()],
+	plugins: [htmlPlugin(), glsl()],
 });
