@@ -19,22 +19,6 @@ export default class App3 extends BaseCanvas {
 
 		this.imagePlanes = [];
 
-		// スクロール
-		this.scroll = {
-			target: 0,
-			current: 0,
-			offset: 0,
-		};
-
-		this.lerp = (a, z, n) => {
-			let result = (1 - n) * a + n * z;
-			if (Math.abs(result) < 0.0001) {
-				result = 0;
-			}
-
-			return result;
-		};
-
 		// カメラ
 		this.fov = 60;
 		this.fovRad = (this.fov / 2) * (Math.PI / 180);
@@ -67,22 +51,6 @@ export default class App3 extends BaseCanvas {
 		return mesh;
 	}
 
-	update() {
-		this.scroll.target = window.scrollY;
-		this.scroll.current = this.lerp(
-			this.scroll.current,
-			this.scroll.target,
-			0.1
-		);
-
-		// 0に近くなれば0にする
-		if (Math.abs(this.scroll.current - this.scroll.target) < 0.01) {
-			this.scroll.offset = 0;
-		} else {
-			this.scroll.offset = this.scroll.target - this.scroll.current;
-		}
-	}
-
 	resize() {
 		super.resize();
 
@@ -93,14 +61,8 @@ export default class App3 extends BaseCanvas {
 	}
 
 	render() {
-		this.update();
-
-		// this.mover.style.transform = `translate3d(0, ${
-		// 	this.scroll.current * -1
-		// }px, 0)`;
-
 		for (const image of this.imagePlanes) {
-			image.update(this.scroll.offset);
+			image.setParams();
 		}
 
 		super.render();

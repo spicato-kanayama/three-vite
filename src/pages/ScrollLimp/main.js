@@ -1,3 +1,5 @@
+import Lenis from '@studio-freight/lenis';
+
 // original
 import App3 from './libs/App3';
 import ImagePlane from './libs/ImagePlane';

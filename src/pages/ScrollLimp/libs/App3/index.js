@@ -88,16 +88,10 @@ export default class App3 extends BaseCanvas {
 
 		this.dist = Math.abs(Config.halfHeight / Math.tan(this.fovRad));
 		this.camera.position.set(0, 0, this.dist);
-
-		document.body.style.height = `${this.mover.clientHeight}px`;
 	}
 
 	render() {
 		this.update();
-
-		// this.mover.style.transform = `translate3d(0, ${
-		// 	this.scroll.current * -1
-		// }px, 0)`;
 
 		for (const image of this.imagePlanes) {
 			image.update(this.scroll.offset);

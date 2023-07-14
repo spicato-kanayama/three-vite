@@ -3,17 +3,13 @@ import { Observer } from 'gsap/Observer';
 
 gsap.registerPlugin(Observer);
 
-document.addEventListener('DOMContentLoaded', () => {
+export default function fullScreen() {
 	let sections = document.querySelectorAll('.image-item'),
-		images = document.querySelectorAll('.bg'),
-		outerWrappers = gsap.utils.toArray('.outer'),
-		innerWrappers = gsap.utils.toArray('.inner'),
+		list = document.querySelector('.image-list'),
 		currentIndex = -1,
 		wrap = gsap.utils.wrap(0, sections.length),
+		prev = 0,
 		animating;
-
-	gsap.set(outerWrappers, { yPercent: 100 });
-	gsap.set(innerWrappers, { yPercent: -100 });
 
 	function gotoSection(index, direction) {
 		index = wrap(index); // make sure it's valid
@@ -27,22 +23,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (currentIndex >= 0) {
 			// The first time this function runs, current is -1
 			gsap.set(sections[currentIndex], { zIndex: 0 });
-			tl.to(images[currentIndex], { yPercent: -15 * dFactor }).set(
-				sections[currentIndex],
-				{ autoAlpha: 0 }
-			);
 		}
-		gsap.set(sections[index], { autoAlpha: 1, zIndex: 1 });
-		tl.fromTo(
-			[outerWrappers[index], innerWrappers[index]],
-			{
-				yPercent: (i) => (i ? -100 * dFactor : 100 * dFactor),
+
+		gsap.set(sections[index], { zIndex: 1 });
+
+		tl.to(list, {
+			yPercent: () => {
+				const result = -100 * dFactor + prev;
+
+				prev = result;
+
+				return result;
 			},
-			{
-				yPercent: 0,
-			},
-			0
-		).fromTo(images[index], { yPercent: 15 * dFactor }, { yPercent: 0 }, 0);
+		});
 
 		currentIndex = index;
 	}
@@ -60,4 +53,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// original: https://codepen.io/BrianCross/pen/PoWapLP
 	// horizontal version: https://codepen.io/GreenSock/pen/xxWdeMK
-});
+}

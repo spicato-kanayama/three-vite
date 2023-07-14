@@ -1,6 +1,7 @@
 // original
 import App3 from './libs/App3';
 import ImagePlane from './libs/ImagePlane';
+import fullScreen from './libs/fullScreen';
 
 import './style.css';
 import '/reset.css';
@@ -29,4 +30,6 @@ window.addEventListener('load', () => {
 	}
 
 	tick();
+
+	fullScreen();
 });
