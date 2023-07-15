@@ -93,9 +93,9 @@ export default class App3 extends BaseCanvas {
 	render() {
 		this.update();
 
-		for (const image of this.imagePlanes) {
-			image.update(this.scroll.offset);
-		}
+		// for (const image of this.imagePlanes) {
+		// 	image.update(this.scroll.offset);
+		// }
 
 		super.render();
 	}

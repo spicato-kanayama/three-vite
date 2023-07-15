@@ -31,4 +31,19 @@ window.addEventListener('load', () => {
 	}
 
 	tick();
+
+	const lenis = new Lenis();
+
+	lenis.on('scroll', (e) => {
+		for (const image of app3.imagePlanes) {
+			image.update(e.velocity);
+		}
+	});
+
+	function raf(time) {
+		lenis.raf(time);
+		requestAnimationFrame(raf);
+	}
+
+	requestAnimationFrame(raf);
 });
