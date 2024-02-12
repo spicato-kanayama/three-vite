@@ -21,8 +21,11 @@
 		"@studio-freight/lenis": "^1.0.34",
 		"glslify": "^7.1.1",
 		"gsap": "^3.12.5",
+		"install": "^0.13.0",
 		"locomotive-scroll": "^4.1.4",
+		"npm": "^10.4.0",
 		"simplex-noise": "^4.0.1",
-		"three": "^0.161.0"
+		"three": "^0.161.0",
+		"three-msdf-text-utils": "^1.1.6"
 	}
 }

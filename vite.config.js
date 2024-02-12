@@ -46,6 +46,9 @@ const htmlPlugin = () => {
 // Viteのコンフィグを定義
 export default defineConfig({
 	root,
+	server: {
+		host: true,
+	},
 	build: {
 		outDir,
 		rollupOptions: {
