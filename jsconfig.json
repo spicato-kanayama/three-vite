@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
-		"checkJs": true,
+		// "checkJs": true,
 		"target": "esnext",
-		"moduleResolution": "Node",
+		"moduleResolution": "Node"
 		// "strict": true
 	},
 	"include": ["src/**/*"],

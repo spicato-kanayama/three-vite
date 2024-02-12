@@ -2,7 +2,6 @@ import * as fs from 'fs';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import glsl from 'vite-plugin-glsl';
-import glslify from 'vite-plugin-glslify';
 
 const root = resolve(__dirname, 'src');
 const pages = resolve(__dirname, 'src', 'pages');
@@ -57,5 +56,5 @@ export default defineConfig({
 		},
 		emptyOutDir: true,
 	},
-	plugins: [htmlPlugin(), glsl(), glslify],
+	plugins: [htmlPlugin(), glsl()],
 });
