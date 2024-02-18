@@ -14,3 +14,7 @@ function tick() {
 window.addEventListener('load', () => {
 	tick();
 });
+
+window.addEventListener('click', () => {
+	app3.animation();
+});
